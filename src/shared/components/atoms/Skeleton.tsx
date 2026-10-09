@@ -2,12 +2,18 @@ import { cn } from "@/lib/cn";
 
 interface SkeletonProps {
   className?: string;
+  variant?: "form" | "card";
 }
 
-export default function Skeleton({ className }: SkeletonProps) {
+const variantBackground = {
+  form: "ds-bg-form",
+  card: "ds-bg-card",
+};
+
+export default function Skeleton({ className, variant = "form" }: SkeletonProps) {
   return (
     <div
-      className={cn("ds-bg-form animate-pulse rounded", className)}
+      className={cn(variantBackground[variant], "animate-pulse rounded", className)}
       role="status"
       aria-hidden="true"
     />

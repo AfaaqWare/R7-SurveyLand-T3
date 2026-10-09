@@ -34,7 +34,7 @@ export const quickActions = [
   {
     id: "create-survey",
     name: "createSurvey",
-    href: "/surveys/create-survey",
+    href: "/dashboard/create-survey",
     variant: "teal" as const,
     icon: "plus" as const,
     adminOnly: false,
@@ -58,7 +58,7 @@ export const quickActions = [
   {
     id: "export-reports",
     name: "exportReports",
-    href: "/reports",
+    href: (surveyId: string) => `/dashboard/my-surveys/${surveyId}/export`,
     variant: "blue" as const,
     icon: "download" as const,
     adminOnly: false,

@@ -870,8 +870,8 @@
           "description": "Browse all responses"
         },
         "exportReports": {
-          "title": "Export Reports",
-          "description": "Download survey reports"
+          "title": "Export Recent Survey",
+          "description": "Download your latest survey's report"
         }
       },
       "sections": {
