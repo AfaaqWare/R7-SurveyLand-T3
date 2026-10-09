@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import useDeleteSurveyAction from "../../hooks/useDeleteSurveyAction";
 import Title from "@/shared/components/atoms/Title";
 import Button from "@/shared/components/atoms/Button";
-import { Pencil, Eye, Trash2, Link as LinkIcon } from "@/assets/icons/icons";
+import { Pencil, Trash2, Link as LinkIcon, Download } from "@/assets/icons/icons";
 
 interface SurveyActionProps {
   handlePublishLink?: React.MouseEventHandler<HTMLButtonElement>;
@@ -31,7 +31,11 @@ function SurveyAction({ handlePublishLink }: SurveyActionProps) {
 
       <div className="flex flex-col gap-3">
         <Link href={`/dashboard/my-surveys/${surveyId}/edit`}>
-          <Button size="md" variant="outline" className="w-full justify-start border-1 border-[#E7E8ED]">
+          <Button
+            size="md"
+            variant="outline"
+            className="w-full justify-start border-1 border-[#E7E8ED]"
+          >
             <Pencil size={13} className="shrink-0" />
             <span className="text-[10px]">{t("actions.edit")}</span>
           </Button>
@@ -47,10 +51,14 @@ function SurveyAction({ handlePublishLink }: SurveyActionProps) {
           <span className="text-[10px]"> {t("actions.PublishLink")} </span>
         </Button>
 
-        <Link href={`/dashboard/responses/${surveyId}`}>
-          <Button size="md" variant="outline" className="w-full justify-start border-1 border-[#E7E8ED]">
-            <Eye size={13} className="shrink-0" />
-            <span className="text-[10px]"> {t("actions.viewResponses")} </span>
+        <Link href={`/dashboard/my-surveys/${surveyId}/export`}>
+          <Button
+            size="md"
+            variant="outline"
+            className="w-full justify-start border-1 border-[#E7E8ED]"
+          >
+            <Download size={13} className="shrink-0" />
+            <span className="text-[10px]"> {t("actions.export")} </span>
           </Button>
         </Link>
 
@@ -61,7 +69,7 @@ function SurveyAction({ handlePublishLink }: SurveyActionProps) {
           className="w-full justify-start border-1 border-[#E7E8ED]"
         >
           <Trash2 className="shrink-0 text-red-500" size={13} />
-          <span className="text-red-500 text-[10px]">{t("actions.delete")}</span>
+          <span className="text-[10px] text-red-500">{t("actions.delete")}</span>
         </Button>
       </div>
     </div>

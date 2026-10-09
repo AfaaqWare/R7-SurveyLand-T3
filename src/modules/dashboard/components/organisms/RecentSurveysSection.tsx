@@ -73,7 +73,10 @@ export default function RecentSurveysSection({
 
                     {/* Status */}
                     <TableCell>
-                      <StatusBadge status={survey.status} />
+                      <StatusBadge
+                        className={`!rounded-lg ${survey.status === "closed" && "!bg-[##F4F5F7] dark:!bg-[#2C3039]"}`}
+                        status={survey.status}
+                      />
                     </TableCell>
 
                     {/* Responses */}
@@ -110,7 +113,10 @@ export default function RecentSurveysSection({
                     Status
                   </Text>
 
-                  <StatusBadge status={survey.status} />
+                  <StatusBadge
+                    className={`!rounded-lg ${survey.status === "closed" && "!bg-[##F4F5F7] dark:!bg-[#2C3039]"}`}
+                    status={survey.status}
+                  />
                 </div>
 
                 {/* Responses */}

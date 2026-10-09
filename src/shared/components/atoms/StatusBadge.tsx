@@ -10,7 +10,7 @@ interface StatusBadgeProps {
 const statusStyles: Record<StatusBadgeVariant, string> = {
   draft: "bg-[#fff3d9] text-[#eda321]",
   published: "bg-[#e2f3eb] text-[#359e63]",
-  closed: "ds-text-disabled bg-[#F0F2F6]",
+  closed: "ds-text-disabled bg-[#ebebeb]",
 };
 
 const statusLabels: Record<StatusBadgeVariant, string> = {
