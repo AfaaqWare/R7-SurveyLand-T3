@@ -12,17 +12,17 @@ function SurveyHeaderActions() {
 
   return (
     <div className="flex flex-wrap gap-[14px]">
-      <Link href={`/survey/${surveyId}`}>
+      <Link href={`/dashboard/my-surveys/${surveyId}/preview`}>
         <Button size="sm" variant="outline" className="border-1 border-[#E7E8ED]">
           <Eye size={13} className="shrink-0 text-[#636978]" />
-          <span className="text-[#636978] text-[10px]">{t("actions.preview")} </span>
+          <span className="text-[10px] text-[#636978]">{t("actions.preview")} </span>
         </Button>
       </Link>
 
       <Link href={`/dashboard/my-surveys/${surveyId}/edit`}>
         <Button size="sm" variant="outline" className="border-1 border-[#E7E8ED]">
           <Pencil size={13} className="shrink-0 text-[#636978]" />
-          <span className="text-[#636978] text-[10px]">{t("actions.edit")} </span>
+          <span className="text-[10px] text-[#636978]">{t("actions.edit")} </span>
         </Button>
       </Link>
 

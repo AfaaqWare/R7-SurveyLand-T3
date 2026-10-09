@@ -79,7 +79,7 @@ export const surveyCardActions: SurveyCardAction[] = [
     id: "preview",
     labelKey: "preview",
     icon: Eye,
-    href: surveyId => `/survey/${surveyId}`,
+    href: surveyId => `my-surveys/${surveyId}/preview`,
     muted: true,
     variant: "outline",
   },
@@ -112,7 +112,13 @@ interface SurveyCardMenuItem {
 }
 
 export const surveyCardMenuItems: SurveyCardMenuItem[] = [
-  { id: "preview", labelKey: "preview", icon: Eye, kind: "link", href: surveyId => `/survey/${surveyId}` },
+  {
+    id: "preview",
+    labelKey: "preview",
+    icon: Eye,
+    kind: "link",
+    href: surveyId => `my-surveys/${surveyId}/preview`,
+  },
   { id: "edit", labelKey: "edit", icon: Pencil, kind: "link", hrefSuffix: "/edit" },
   { id: "publish", labelKey: "publish", icon: Send, kind: "action" },
   { id: "copyLink", labelKey: "copyLink", icon: Link2, kind: "action" },
