@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import StatsCard from "../molecules/StatsCard";
+import SurveyStatsSectionSkeleton from "./SurveyStatsSectionSkeleton";
 import useDashboardStats from "../../hooks/useDashboardStats";
 import { useTranslations } from "next-intl";
 
@@ -26,7 +27,14 @@ export default function SurveyStatsSection({ stats, className }: SurveyStatsSect
     totalLastMonthSurveys,
     totalLastMonthDraftSurveys,
     totalLastMonthPublishedSurveys,
+    loadingRecentSurveys,
+    loadingRecentResponses,
+    loadingUsers,
   } = useDashboardStats();
+
+  if (loadingRecentSurveys || loadingRecentResponses || loadingUsers) {
+    return <SurveyStatsSectionSkeleton className={className} />;
+  }
 
   const resultState: Record<string, number> = {
     totalSurveys: totalLastMonthSurveys,

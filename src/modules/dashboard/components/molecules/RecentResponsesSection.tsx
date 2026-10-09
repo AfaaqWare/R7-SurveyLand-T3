@@ -4,6 +4,7 @@ import Text from "@/shared/components/atoms/Text";
 import DataTableHeader from "./DataTableHeader";
 import { Table, TableBody, TableCell, TableRow } from "@/shared/components/molecules/Table";
 import SectionHeader from "./SectionHeader";
+import RecentResponsesSectionSkeleton from "./RecentResponsesSectionSkeleton";
 import { RecentSurveyResponse } from "@/modules/responses/type/responses";
 import { formatDate } from "@/shared/utils/formatDate";
 import { EmptyState, ErrorState } from "@/core/ui-states";
@@ -22,20 +23,14 @@ export default function RecentResponsesSection({
   isError = false,
   className,
 }: RecentResponsesSectionProps) {
-  const t = useTranslations();
   return (
     <section className={cn("ds-bg-card ds-rounded-3xl ds-p-lg", "w-full", className)}>
       {/* ==================== Header ==================== */}
       <SectionHeader title="recentResponses" buttonLabel="viewAll" href="/dashboard/responses" />
 
       {/* ==================== Loading State ==================== */}
-      {isLoading && (
-        <div className="flex min-h-[250px] items-center justify-center">
-          <Text size="sm" variant="secondary">
-            {t("ui-state.loading")}
-          </Text>
-        </div>
-      )}
+
+      {isLoading && <RecentResponsesSectionSkeleton />}
 
       {/* ==================== Error State ==================== */}
       {!isLoading && isError && <ErrorState className="!m-h-50 !max-h-50" />}

@@ -5,6 +5,7 @@ import StatusBadge from "@/shared/components/atoms/StatusBadge";
 import DataTableHeader from "../molecules/DataTableHeader";
 import { Table, TableBody, TableCell, TableRow } from "@/shared/components/molecules/Table";
 import SectionHeader from "../molecules/SectionHeader";
+import RecentSurveysSectionSkeleton from "./RecentSurveysSectionSkeleton";
 import { Survey } from "@/modules/survey-response/types/survey";
 import { formatDate } from "@/shared/utils/formatDate";
 import { EmptyState, ErrorState } from "@/core/ui-states";
@@ -31,14 +32,7 @@ export default function RecentSurveysSection({
 
       {/* ==================== Content ==================== */}
 
-      {/* Loading State */}
-      {isLoading && (
-        <div className="flex min-h-[250px] items-center justify-center">
-          <Text size="sm" variant="secondary">
-            {t("ui-state.loading")}
-          </Text>
-        </div>
-      )}
+      {isLoading && <RecentSurveysSectionSkeleton />}
 
       {/* Error State */}
       {!isLoading && isError && <ErrorState className="!m-h-50 !max-h-50" />}

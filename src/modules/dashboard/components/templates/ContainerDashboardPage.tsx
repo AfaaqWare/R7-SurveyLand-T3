@@ -47,12 +47,12 @@ export default function ContainerDashboardPage() {
     },
   ];
   return (
-    <main className="px-4">
-      <Heading name={String(name ?? "")} />
+    <main>
+      <Heading name={String(name ?? "loading...")} />
 
       <SurveyStatsSection stats={surveyStats} />
       <div className="my-10 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.2fr)]">
-        <SurveyStatusSection data={statusData} />
+        <SurveyStatusSection data={statusData} isLoading={loadingRecentSurveys} />
         <RecentSurveysSection
           surveys={recentSurveys}
           isError={errorRecentSurveys}
@@ -65,7 +65,7 @@ export default function ContainerDashboardPage() {
           isError={errorRecentResponses}
           isLoading={loadingRecentResponses}
         />
-        <SurveyStatusSection data={statusData} />
+        <SurveyStatusSection data={statusData} isLoading={loadingRecentSurveys} />
       </div>
       <QuickActionsSection />
     </main>

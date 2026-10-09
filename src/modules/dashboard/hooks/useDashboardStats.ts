@@ -13,7 +13,11 @@ export default function useDashboardStats() {
 
   const surveys = surveysResponse?.data;
 
-  const { data: users } = useGetUsers();
+  const {
+    data: users,
+    isLoading: loadingUsers,
+    isError: errorUsers,
+  } = useGetUsers();
 
   const {
     data: responses,
@@ -105,5 +109,7 @@ export default function useDashboardStats() {
     loadingRecentSurveys,
     errorRecentResponses,
     loadingRecentResponses,
+    loadingUsers,
+    errorUsers,
   };
 }

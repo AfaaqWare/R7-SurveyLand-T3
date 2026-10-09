@@ -8,6 +8,7 @@ import Icon from "@/shared/components/atoms/Icon";
 import { ChartConfig, ChartContainer } from "./Chart";
 import { useTranslations } from "next-intl";
 import { Survey } from "@/modules/survey-response/types/survey";
+import SurveyStatusSectionSkeleton from "./SurveyStatusSectionSkeleton";
 interface SurveyStatus {
   id: Survey["status"];
   label: string;
@@ -18,6 +19,7 @@ interface SurveyStatusSectionProps {
   data?: SurveyStatus[];
   total?: number;
   isIcon?: boolean;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -25,9 +27,14 @@ export default function SurveyStatusSection({
   data = [],
   total,
   isIcon = false,
+  isLoading = false,
   className,
 }: SurveyStatusSectionProps) {
   const t = useTranslations("dashboard.home");
+
+  if (isLoading) {
+    return <SurveyStatusSectionSkeleton className={className} />;
+  }
   const chartConfig = {
     draft: {
       label: "Draft",
