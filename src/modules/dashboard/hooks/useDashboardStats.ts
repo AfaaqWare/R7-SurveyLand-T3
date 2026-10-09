@@ -2,6 +2,7 @@ import { useGetUsers } from "@/modules/dashboard/hooks/useGetUsers";
 import useGetAllResponses from "@/modules/responses/hooks/useGetAllResponses";
 import { getResponsesCountBySurveyId } from "@/modules/responses/utils/getResponsesCountBySurveyId";
 import useGetAllSurveys from "@/modules/survey-response/hooks/useGetAllSurveys";
+import { getSurveyTitleBySurveyId } from "@/modules/survey-response/utils/getSurveyTitleBySurveyId";
 
 export default function useDashboardStats() {
   const {
@@ -69,10 +70,16 @@ export default function useDashboardStats() {
         responsesCount: responsesCountBySurveyId.get(survey.id) ?? 0,
       })) ?? [];
 
+  const surveyTitleBySurveyId = getSurveyTitleBySurveyId(surveys ?? []);
+
   const recentResponses =
     responses?.data
       ?.sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
-      .slice(0, 4) ?? [];
+      .slice(0, 4)
+      .map(response => ({
+        ...response,
+        surveyTitle: surveyTitleBySurveyId.get(response.surveyId) ?? "",
+      })) ?? [];
 
   const totalDraftSurveys = surveys?.filter(survey => survey.status === "draft").length ?? 0;
 

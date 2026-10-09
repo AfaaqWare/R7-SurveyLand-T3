@@ -4,13 +4,13 @@ import Text from "@/shared/components/atoms/Text";
 import DataTableHeader from "./DataTableHeader";
 import { Table, TableBody, TableCell, TableRow } from "@/shared/components/molecules/Table";
 import SectionHeader from "./SectionHeader";
-import { SurveyResponse } from "@/modules/responses/type/responses";
+import { RecentSurveyResponse } from "@/modules/responses/type/responses";
 import { formatDate } from "@/shared/utils/formatDate";
 import { EmptyState, ErrorState } from "@/core/ui-states";
 import { useTranslations } from "next-intl";
 
 interface RecentResponsesSectionProps {
-  responses?: SurveyResponse[];
+  responses?: RecentSurveyResponse[];
   isLoading?: boolean;
   isError?: boolean;
   className?: string;
@@ -68,7 +68,7 @@ export default function RecentResponsesSection({
                     {/* Survey Title */}
                     <TableCell>
                       <Title size="sm" className="font-semibold !text-[var(--color-text-dash)]">
-                        {"Event Survey"}
+                        {response.surveyTitle || "No Title"}
                       </Title>
                     </TableCell>
 
@@ -116,7 +116,7 @@ export default function RecentResponsesSection({
               >
                 {/* Survey Title */}
                 <Title size="sm" className="mb-4 font-bold">
-                  {"Event Survey 2026"}
+                  {response.surveyTitle || "No Title"}
                 </Title>
 
                 {/* Respondent */}
