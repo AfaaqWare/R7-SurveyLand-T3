@@ -1,5 +1,6 @@
 import { useGetUsers } from "@/modules/dashboard/hooks/useGetUsers";
 import useGetAllResponses from "@/modules/responses/hooks/useGetAllResponses";
+import { getResponsesCountBySurveyId } from "@/modules/responses/utils/getResponsesCountBySurveyId";
 import useGetAllSurveys from "@/modules/survey-response/hooks/useGetAllSurveys";
 
 export default function useDashboardStats() {
@@ -57,10 +58,16 @@ export default function useDashboardStats() {
     }) ?? [];
 
   const totalLastMonthDraftSurveys = lastMontDraftSurveys?.length ?? 0;
+  const responsesCountBySurveyId = getResponsesCountBySurveyId(responses?.data ?? []);
+
   const recentSurveys =
     surveys
       ?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 4) ?? [];
+      .slice(0, 4)
+      .map(survey => ({
+        ...survey,
+        responsesCount: responsesCountBySurveyId.get(survey.id) ?? 0,
+      })) ?? [];
 
   const recentResponses =
     responses?.data

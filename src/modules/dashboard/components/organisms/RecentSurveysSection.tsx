@@ -85,7 +85,7 @@ export default function RecentSurveysSection({
                     {/* Responses */}
                     <TableCell>
                       <Text size="xs" className="font-semibold !text-[var(--color-text-dash)]">
-                        {10}
+                        {survey.responsesCount ?? 0}
                       </Text>
                     </TableCell>
 
@@ -126,7 +126,7 @@ export default function RecentSurveysSection({
                   </Text>
 
                   <Text size="sm" className="!text-[var(--color-text-dash)]">
-                    {10}
+                    {survey.responsesCount ?? 0}
                   </Text>
                 </div>
 
