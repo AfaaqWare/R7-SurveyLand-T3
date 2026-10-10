@@ -14,55 +14,6 @@ import {
 import { formatDate } from "@/shared/utils/formatDate";
 import { formatRelativeTime } from "@/shared/utils/formatRelativeTime";
 import type { BadgeTone } from "@/shared/components/atoms/Badge";
-export const mockSurvey: Survey = {
-  id: "survey-1",
-
-  userId: "user-1",
-
-  title: "Frontend Training Survey",
-
-  description: "Help us improve the training experience.",
-
-  cover: "/images/responseHeroImg.jpg",
-
-  deadline: "10 May 2026",
-
-  status: "draft",
-
-  link: null,
-
-  createdAt: "2026-01-10T00:00:00.000Z",
-
-  updatedAt: "2026-01-10T00:00:00.000Z",
-
-  lastMilestone: 0,
-
-  questions: [
-    {
-      qid: "q1",
-      type: "mcq",
-      questionText: "What's your favorite language?",
-      isRequired: true,
-      choices: ["JavaScript", "Python", "Go"],
-    },
-
-    {
-      qid: "q2",
-      type: "textarea",
-      questionText: "ما اسمك ؟",
-      isRequired: true,
-      choices: null,
-    },
-
-    {
-      qid: "q3",
-      type: "textarea",
-      questionText: "ما رأيك في التدريب ؟",
-      isRequired: true,
-      choices: null,
-    },
-  ],
-};
 
 interface SurveyCardAction {
   id: string;
@@ -175,7 +126,7 @@ export const responsesPreviewBadges: ResponsesPreviewBadge[] = [
     id: "showingRows",
     tone: "gray",
     labelKey: "showingFirstRows",
-    getValues: () => ({ count: RESPONSES_PREVIEW_ROW_LIMIT }),
+    getValues: ({ responsesCount }) => ({ count: responsesCount >= 5 ? 5 : responsesCount }),
   },
   {
     id: "questions",

@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Swal from "sweetalert2";
-
 import Title from "@/shared/components/atoms/Title";
 import Text from "@/shared/components/atoms/Text";
 import Button from "@/shared/components/atoms/Button";
@@ -29,6 +27,7 @@ import {
 
 import usePublishSurveyLink from "../../hooks/usePublishSurveyLink";
 import type { Survey } from "../../types/survey";
+import { useAlert } from "@/shared/hooks/useAlert";
 
 interface ExportResponsesHeaderProps {
   survey: Survey;
@@ -43,28 +42,7 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
   const [shareLink, setShareLink] = useState<string | null>(null);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-
-  const showSuccess = (title: string, value?: string | null) => {
-    void Swal.fire({
-      icon: "success",
-      title,
-      html: value
-        ? `<div style="font-weight:600;word-break:break-all">${value}</div><div style="opacity:.7;margin-top:4px">${tMenu(
-            "operationSuccess"
-          )}</div>`
-        : `<div style="opacity:.7">${tMenu("operationSuccess")}</div>`,
-      confirmButtonText: tMenu("ok"),
-    });
-  };
-
-  const showError = (text: string) => {
-    void Swal.fire({
-      icon: "error",
-      title: tMenu("errorTitle"),
-      text,
-      confirmButtonText: tMenu("ok"),
-    });
-  };
+  const { showAlert } = useAlert();
 
   const handleShare = async () => {
     if (survey.status === "closed") {
@@ -77,13 +55,13 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
         const updated = await publishMutation.mutateAsync(survey.id);
         link = updated.link;
       } catch {
-        showError(tMenu("copyLinkErrorText"));
+        showAlert("error", tMenu("errorTitle"), tMenu("copyLinkErrorText"));
         return;
       }
     }
 
     if (!link) {
-      showError(tMenu("copyLinkErrorText"));
+      showAlert("error", tMenu("errorTitle"), tMenu("copyLinkErrorText"));
       return;
     }
     const surveyUrl = `${window.location.origin}/survey/${link}`;
@@ -102,10 +80,10 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
 
       setTimeout(() => {
         setIsCopied(false);
-        showSuccess(tMenu("copyLinkSuccessTitle"), shareLink);
+        showAlert("success", tMenu("copyLinkSuccessTitle"), shareLink);
       }, 2000);
     } catch {
-      showError(tMenu("copyLinkErrorText"));
+      showAlert("error", tMenu("errorTitle"), tMenu("copyLinkErrorText"));
     }
   };
   const isClosed = survey.status === "closed";
