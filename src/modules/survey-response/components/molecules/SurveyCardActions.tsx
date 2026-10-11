@@ -41,22 +41,7 @@ export default function SurveyCardActions({ surveyId }: SurveyCardActionsProps) 
 
         const itemWrapperClassName = "flex-1 basis-[80px]";
 
-        if (!action.href && action.hrefSuffix === undefined) {
-          return (
-            <Button
-              key={action.id}
-              variant={action.variant}
-              size="sm"
-              className={cn(buttonClassName, itemWrapperClassName)}
-            >
-              {buttonContent}
-            </Button>
-          );
-        }
-
-        const href = action.href
-          ? action.href(surveyId)
-          : `/dashboard/survey/${surveyId}${action.hrefSuffix}`;
+        const href = action.href?.(surveyId) || "";
 
         return (
           <Link key={action.id} href={href} className={itemWrapperClassName}>

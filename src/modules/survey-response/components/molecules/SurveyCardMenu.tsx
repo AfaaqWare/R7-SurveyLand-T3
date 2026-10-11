@@ -90,11 +90,7 @@ export default function SurveyCardMenu({
               return (
                 <li key={item.id} role="none">
                   <Link
-                    href={
-                      item.href
-                        ? item.href(surveyId)
-                        : `/dashboard/my-surveys/${surveyId}${item.hrefSuffix}`
-                    }
+                    href={item.href?.(surveyId) || ""}
                     role="menuitem"
                     onClick={() => setIsOpen(false)}
                     className={itemClassName}
