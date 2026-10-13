@@ -7,7 +7,11 @@ import ButtonGroup from "@/shared/components/molecules/ButtonGroup";
 import { useTranslations } from "next-intl";
 import Link from "@/shared/components/atoms/navbar/Link";
 
-const HomeHeroSection = () => {
+interface HomeHeroSectionProps {
+  onHowItWorksClick?: () => void;
+}
+
+const HomeHeroSection = ({ onHowItWorksClick }: HomeHeroSectionProps) => {
   const t = useTranslations("publicPages.home.hero-section");
   return (
     <HeroSection src={homehero} imgHeight={482} imgWidth={488}>
@@ -37,6 +41,7 @@ const HomeHeroSection = () => {
             children: t("how-work-btn"),
             size: "md",
             className: "!text-[var(--color-primary)]",
+            onClick: onHowItWorksClick,
           }}
           gap={6}
         />

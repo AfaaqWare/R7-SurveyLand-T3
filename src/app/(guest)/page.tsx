@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import PublicLayout from "@/shared/components/Layout/PublicLayout";
-import HomeHeroSection from "@/modules/guest/components/organisms/home/HomeHeroSection";
-import WorkStepsSection from "@/modules/guest/components/organisms/home/WorkStepsSection";
+import HomeIntroSections from "@/modules/guest/components/organisms/home/HomeIntroSections";
 import PopularTemplates from "@/modules/guest/components/organisms/home/PopularTemplates";
 import HeroSection1 from "@/shared/components/organisms/HeroSection1";
 import Cardsection from "@/shared/components/organisms/Cardsection";
@@ -17,8 +16,7 @@ export const metadata: Metadata = getSeoMetadata({
 export default function Page() {
   return (
     <PublicLayout>
-      <HomeHeroSection />
-      <WorkStepsSection />
+      <HomeIntroSections />
       <PopularTemplates />
       <Cardsection />
       <PricingSection />
