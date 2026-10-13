@@ -1,8 +1,19 @@
 import React from "react";
 import { cn } from "@/lib/cn";
 
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "outline1"
+  | "ghost"
+  | "primary200"
+  | "disabled"
+  | "white"
+  | "primaryWhite"
+  | "panel";
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "outline1" | "ghost" | "primary200" | "disabled" | "white" | "primaryWhite" | "panel" ;
+  variant?: ButtonVariant;
   size?: "sm" | "md" | "lg" | "xlg" | "form";
   className?: string;
   children: React.ReactNode;

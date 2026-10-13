@@ -1,9 +1,8 @@
 import React from "react";
-import Button from "../atoms/Button";
 import { cn } from "@/lib/cn";
-
+import Button, { type ButtonVariant } from "../atoms/Button";
 interface ButtonProps {
-  variant: "primary" | "secondary" | "outline" | "outline1" | "ghost" | "primary200" | "disabled";
+  variant?: ButtonVariant;
   children: React.ReactNode;
   size?: "sm" | "md" | "lg";
 }
@@ -15,7 +14,12 @@ interface ButtonGroupProps {
   className?: string;
 }
 
-export default function ButtonGroup({ button1, button2, gap = 4, className = "" }: ButtonGroupProps) {
+export default function ButtonGroup({
+  button1,
+  button2,
+  gap = 4,
+  className = "",
+}: ButtonGroupProps) {
   const gapClasses: Record<number, string> = {
     2: "gap-2",
     4: "gap-4",

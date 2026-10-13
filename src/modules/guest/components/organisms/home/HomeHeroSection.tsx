@@ -5,6 +5,7 @@ import Title from "@/shared/components/atoms/Title";
 import Text from "@/shared/components/atoms/Text";
 import ButtonGroup from "@/shared/components/molecules/ButtonGroup";
 import { useTranslations } from "next-intl";
+import Link from "@/shared/components/atoms/navbar/Link";
 
 const HomeHeroSection = () => {
   const t = useTranslations("publicPages.home.hero-section");
@@ -22,7 +23,15 @@ const HomeHeroSection = () => {
         </Text>
 
         <ButtonGroup
-          button1={{ variant: "primary", children: t("create-btn"), size: "md" }}
+          button1={{
+            variant: "primaryWhite",
+            children: (
+              <Link href="/dashboard/create-survey" className="pb-0 !text-inherit !no-underline">
+                {t("create-btn")}
+              </Link>
+            ),
+            size: "md",
+          }}
           button2={{ variant: "outline1", children: t("how-work-btn"), size: "md" }}
           gap={6}
         />
