@@ -32,7 +32,12 @@ const HomeHeroSection = () => {
             ),
             size: "md",
           }}
-          button2={{ variant: "outline1", children: t("how-work-btn"), size: "md" }}
+          button2={{
+            variant: "outline1",
+            children: t("how-work-btn"),
+            size: "md",
+            className: "!text-[var(--color-primary)]",
+          }}
           gap={6}
         />
       </div>

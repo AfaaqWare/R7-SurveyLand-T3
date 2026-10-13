@@ -5,6 +5,7 @@ interface ButtonProps {
   variant?: ButtonVariant;
   children: React.ReactNode;
   size?: "sm" | "md" | "lg";
+  className?: string;
 }
 
 interface ButtonGroupProps {
@@ -28,10 +29,10 @@ export default function ButtonGroup({
   };
   return (
     <div className={cn("flex items-center", gapClasses[gap] || "gap-4", className)}>
-      <Button variant={button1.variant} size={button1.size || "md"}>
+      <Button variant={button1.variant} size={button1.size || "md"} className={button1.className}>
         {button1.children}
       </Button>
-      <Button variant={button2.variant} size={button2.size || "md"}>
+      <Button variant={button2.variant} size={button2.size || "md"} className={button2.className}>
         {button2.children}
       </Button>
     </div>
