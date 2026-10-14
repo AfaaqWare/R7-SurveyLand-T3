@@ -215,8 +215,9 @@
   "publicPages": {
     "home": {
       "hero-section": {
-        "title": "Turn <alt>questions</alt> into clarity",
-        "description": "Create surveys, collect feedback, and turn responses into decisions that help your business grow.",
+        "title": "Turn <alt>Questions</alt> into clarity and Transform <alt>Responses</alt> into Valuable Insights",
+
+        "description": "Effortlessly build surveys that deliver the answers you need to grow, improve, and connect with your audience.",
         "create-btn": "Create your survey",
         "how-work-btn": "See how it works"
       },

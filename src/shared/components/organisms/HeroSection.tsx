@@ -25,9 +25,14 @@ export default function HeroSection({
 }: Props) {
   const innerContent = children || content;
   return (
-    <div className={cn("ds-container flex h-[90vh] flex-col items-center justify-between md:flex-row gap-8", className)}>
-      <div className="w-full md:w-[50%]">{innerContent}</div>
-      <div className="w-full md:w-[50%] flex justify-center">
+    <div
+      className={cn(
+        "ds-container flex min-h-[90vh] flex-col items-center justify-center gap-8 lg:flex-row lg:justify-between",
+        className
+      )}
+    >
+      <div className="w-full lg:w-[50%]">{innerContent}</div>
+      <div className="flex justify-center lg:w-[50%]">
         <Images src={src} alt={alt} width={imgWidth} height={imgHeight} />
       </div>
     </div>

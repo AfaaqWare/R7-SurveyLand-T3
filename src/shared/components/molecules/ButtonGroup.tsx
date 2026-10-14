@@ -29,7 +29,7 @@ export default function ButtonGroup({
     8: "gap-8",
   };
   return (
-    <div className={cn("flex items-center", gapClasses[gap] || "gap-4", className)}>
+    <div className={cn("flex flex-wrap items-center", gapClasses[gap] || "gap-4", className)}>
       <Button
         variant={button1.variant}
         size={button1.size || "md"}
