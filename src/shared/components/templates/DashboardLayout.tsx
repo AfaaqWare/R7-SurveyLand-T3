@@ -8,7 +8,7 @@ import AdminSidebar from "@/modules/dashboard/components/organisms/AdminSidebar"
 import UserSidebar from "@/modules/dashboard/components/organisms/UserSidebar";
 import useGetProfile from "@/modules/auth/hooks/useGetProfile";
 
-const ADMIN_ROUTES = ["/dashboard/users", "/dashboard/roles"];
+const ADMIN_ROUTES = ["/dashboard/users", "/dashboard/edit-role"];
 
 interface Props {
   children: React.ReactNode;
