@@ -62,7 +62,7 @@ export default function DashboardMenu({ collapsed }: DashboardMenuProps) {
           {
             label: "Roles & Permission",
             icon: <ShieldCheck size={22} />,
-            href: "/dashboard/roles",
+            href: "/dashboard/users",
           },
         ]}
       />
