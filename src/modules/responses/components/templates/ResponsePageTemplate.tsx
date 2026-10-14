@@ -5,11 +5,12 @@ import ResponseHeader from "../organismas/ResponseHeader";
 import ResponseTable from "../organismas/ResponseTable";
 import ResponseToolbar from "../organismas/ResponseToolbar";
 import useGetAllResponses from "@/modules/responses/hooks/useGetAllResponses";
-import { getAllSurveysApi } from "@/modules/survey-response/api/getAllSurveysApi";
+import useGetAllSurveys from "@/modules/survey-response/hooks/useGetAllSurveys";
 import type { AllResponses } from "@/modules/responses/type/allResponses";
 
 function ResponsePageTemplate() {
   const { data } = useGetAllResponses();
+  const { data: surveysData } = useGetAllSurveys();
   const [searchTerm, setSearchTerm] = useState("");
   const [reversedData, setReversedData] = useState<AllResponses[]>([]);
   const [isReversedData, setIsReversedData] = useState(false);
@@ -17,16 +18,10 @@ function ResponsePageTemplate() {
   const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
-    async function getSurveys() {
-      const response = await getAllSurveysApi();
-
-      const surveysIds = response?.data.map(survey => survey.id) ?? [];
-      const myResponses = data?.data.filter(response => surveysIds.includes(response.surveyId)) ?? [];
-      setMyResponses(myResponses);
-    }
-
-    getSurveys();
-  }, [data]);
+    const surveysIds = surveysData?.data.map(survey => survey.id) ?? [];
+    const filtered = data?.data.filter(response => surveysIds.includes(response.surveyId)) ?? [];
+    setMyResponses(filtered);
+  }, [data, surveysData]);
 
   function getReverseData() {
     if (!isReversedData) {
