@@ -1,5 +1,5 @@
 import type { Survey, SurveyStatus } from "@/modules/survey-response/types/survey";
-import type { SurveyResponse } from "@/modules/responses/type/responses";
+import type { RecentSurveyResponse, SurveyResponse } from "@/modules/responses/type/responses";
 import type { AdminUser } from "../types/AdminUser";
 import type { DateRange, LastMonthStats, SurveyStatusCounts } from "../types/dashboardStats";
 
@@ -73,4 +73,51 @@ export function getLastMonthStats({
   }
 
   return stats;
+}
+
+export function getTopByDate<T>(
+  items: T[],
+  getDate: (item: T) => string,
+  limit: number = RECENT_ITEMS_LIMIT
+): T[] {
+  if (limit <= 0) return [];
+
+  const top: { item: T; time: number }[] = [];
+
+  for (const item of items) {
+    const parsed = new Date(getDate(item)).getTime();
+    const time = Number.isNaN(parsed) ? -Infinity : parsed;
+
+    if (top.length === limit && time <= top[top.length - 1].time) continue;
+
+    let index = top.length;
+    while (index > 0 && top[index - 1].time < time) index -= 1;
+
+    top.splice(index, 0, { item, time });
+    if (top.length > limit) top.pop();
+  }
+
+  return top.map(entry => entry.item);
+}
+
+export function getRecentSurveys(
+  surveys: Survey[],
+  responsesCountBySurveyId: Map<string, number>,
+  limit: number = RECENT_ITEMS_LIMIT
+): Survey[] {
+  return getTopByDate(surveys, survey => survey.createdAt, limit).map(survey => ({
+    ...survey,
+    responsesCount: responsesCountBySurveyId.get(survey.id) ?? 0,
+  }));
+}
+
+export function getRecentResponses(
+  responses: SurveyResponse[],
+  surveyTitleBySurveyId: Map<string, string>,
+  limit: number = RECENT_ITEMS_LIMIT
+): RecentSurveyResponse[] {
+  return getTopByDate(responses, response => response.submittedAt, limit).map(response => ({
+    ...response,
+    surveyTitle: surveyTitleBySurveyId.get(response.surveyId) ?? "",
+  }));
 }
