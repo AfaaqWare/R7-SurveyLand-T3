@@ -7,14 +7,13 @@ import QuickActionCardSkeleton from "../molecules/QuickActionCardSkeleton";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import useGetProfile from "@/modules/auth/hooks/useGetProfile";
-import useDashboardStats from "../../hooks/useDashboardStats";
+import useLatestSurveyId from "../../hooks/useLatestSurveyId";
 
 export default function QuickActionsSection() {
   const t = useTranslations("dashboard.home.quickActions");
   const { data } = useGetProfile();
   const isAdmin = data?.role === "ADMIN";
-  const { recentSurveys, loadingRecentSurveys } = useDashboardStats();
-  const latestSurveyId = recentSurveys?.[0]?.id;
+  const { latestSurveyId: latestId, isLoading: loadingLatestSurvey } = useLatestSurveyId();
 
   const visibleActions = quickActions.filter(action => !action.adminOnly || isAdmin);
 
@@ -36,11 +35,11 @@ export default function QuickActionsSection() {
       >
         {visibleActions.map(action => {
           if (typeof action.href === "function") {
-            if (loadingRecentSurveys) {
+            if (loadingLatestSurvey) {
               return <QuickActionCardSkeleton key={action.id} />;
             }
 
-            if (!latestSurveyId) {
+            if (!latestId) {
               return null;
             }
 
@@ -50,7 +49,7 @@ export default function QuickActionsSection() {
                 icon={action.icon}
                 name={action.name}
                 variant={action.variant}
-                href={action.href(latestSurveyId)}
+                href={action.href(latestId)}
               />
             );
           }
