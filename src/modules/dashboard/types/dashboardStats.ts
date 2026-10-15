@@ -6,3 +6,11 @@ export interface DateRange {
 }
 
 export type SurveyStatusCounts = Record<SurveyStatus, number>;
+
+export interface LastMonthStats {
+  totalSurveys: number;
+  totalResponses: number;
+  totalUsers: number;
+  published: number;
+  draft: number;
+}
