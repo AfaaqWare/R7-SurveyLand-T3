@@ -66,8 +66,8 @@ export default function useDashboardStats() {
   const responsesCountBySurveyId = getResponsesCountBySurveyId(responses?.data ?? []);
 
   const recentSurveys =
-    surveys
-      ?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    [...(surveys ?? [])]
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, 4)
       .map(survey => ({
         ...survey,
@@ -77,8 +77,8 @@ export default function useDashboardStats() {
   const surveyTitleBySurveyId = getSurveyTitleBySurveyId(surveys ?? []);
 
   const recentResponses =
-    responses?.data
-      ?.sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
+    [...(responses?.data ?? [])]
+      .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
       .slice(0, 4)
       .map(response => ({
         ...response,
