@@ -2,7 +2,7 @@
 import React from "react";
 import StatsCard from "../molecules/StatsCard";
 import SurveyStatsSectionSkeleton from "./SurveyStatsSectionSkeleton";
-import useDashboardStats from "../../hooks/useDashboardStats";
+import useLastMonthStats from "../../hooks/useLastMonthStats";
 import { useTranslations } from "next-intl";
 
 type StatsIcon = "clipboard" | "send" | "chart" | "users";
@@ -21,27 +21,19 @@ interface SurveyStatsSectionProps {
 
 export default function SurveyStatsSection({ stats, className }: SurveyStatsSectionProps) {
   const t = useTranslations();
-  const {
-    TotalLastMonthResponses,
-    totalLastMonthUsers,
-    totalLastMonthSurveys,
-    totalLastMonthDraftSurveys,
-    totalLastMonthPublishedSurveys,
-    loadingRecentSurveys,
-    loadingRecentResponses,
-    loadingUsers,
-  } = useDashboardStats();
 
-  if (loadingRecentSurveys || loadingRecentResponses || loadingUsers) {
+  const { stats: lastMonthStats, isLoading: loadingLastMonthStats } = useLastMonthStats();
+
+  if (loadingLastMonthStats) {
     return <SurveyStatsSectionSkeleton className={className} />;
   }
 
   const resultState: Record<string, number> = {
-    totalSurveys: totalLastMonthSurveys,
-    totalResponses: TotalLastMonthResponses,
-    totalUsers: totalLastMonthUsers,
-    published: totalLastMonthPublishedSurveys,
-    draft: totalLastMonthDraftSurveys,
+    totalSurveys: lastMonthStats.totalSurveys,
+    totalResponses: lastMonthStats.totalResponses,
+    totalUsers: lastMonthStats.totalUsers,
+    published: lastMonthStats.published,
+    draft: lastMonthStats.draft,
   };
 
   return (
