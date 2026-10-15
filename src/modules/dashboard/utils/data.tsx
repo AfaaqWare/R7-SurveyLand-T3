@@ -64,6 +64,23 @@ export const quickActions = [
     adminOnly: false,
   },
 ];
+export const surveyStatusItems = [
+  {
+    id: "draft" as const,
+    labelKey: "draft" as const,
+    color: "var(--color-status-draft)",
+  },
+  {
+    id: "published" as const,
+    labelKey: "published" as const,
+    color: "var(--color-status-published)",
+  },
+  {
+    id: "closed" as const,
+    labelKey: "closed" as const,
+    color: "var(--color-status-closed)",
+  },
+];
 export const theme = {
   teal: {
     icon: "teal",
