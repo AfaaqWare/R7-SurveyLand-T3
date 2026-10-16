@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import useGetAllSurveys from "./useGetAllSurveys";
 
 import useGetAllResponses from "@/modules/responses/hooks/useGetAllResponses";
+import { getResponsesCountBySurveyId } from "@/modules/responses/utils/getResponsesCountBySurveyId";
 import type { SurveyStatusFilter } from "../components/molecules/SurveyStatusTabs";
 import type { SurveysSortOrder } from "../components/molecules/SurveySortSelect";
 import type { Survey } from "../types/survey";
@@ -53,13 +54,10 @@ export default function useSurveysGridData({
   const { data: result, isLoading, isError, refetch } = useGetAllSurveys(1, FETCH_ALL_PAGE_SIZE);
   const { data: responsesResult } = useGetAllResponses();
 
-  const responsesCountBySurveyId = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const response of responsesResult?.data ?? []) {
-      map.set(response.surveyId, (map.get(response.surveyId) ?? 0) + 1);
-    }
-    return map;
-  }, [responsesResult]);
+  const responsesCountBySurveyId = useMemo(
+    () => getResponsesCountBySurveyId(responsesResult?.data ?? []),
+    [responsesResult]
+  );
 
   const surveysWithResponseCounts = useMemo(() => {
     const surveys = result?.data ?? [];

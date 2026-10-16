@@ -11,6 +11,7 @@ import SurveyCardActions from "../molecules/SurveyCardActions";
 import usePublishSurveyLink from "../../hooks/usePublishSurveyLink";
 import useDeleteSurvey from "../../hooks/useDeleteSurvey";
 import type { Survey } from "../../types/survey";
+import { useAlert } from "@/shared/hooks/useAlert";
 
 interface SurveyCardProps {
   survey: Survey;
@@ -21,33 +22,12 @@ export default function SurveyCard({ survey }: SurveyCardProps) {
   const locale = useLocale();
   const publishMutation = usePublishSurveyLink();
   const deleteMutation = useDeleteSurvey();
-
-  const showSuccess = (title: string, value?: string | null) => {
-    void Swal.fire({
-      icon: "success",
-      title,
-      html: value
-        ? `<div style="font-weight:700;word-break:break-all">${value}</div><div style="opacity:.7;margin-top:4px">${t(
-            "operationSuccess"
-          )}</div>`
-        : `<div style="opacity:.7">${t("operationSuccess")}</div>`,
-      confirmButtonText: t("ok"),
-    });
-  };
-
-  const showError = (text: string) => {
-    void Swal.fire({
-      icon: "error",
-      title: t("errorTitle"),
-      text,
-      confirmButtonText: t("ok"),
-    });
-  };
+  const { showAlert } = useAlert();
 
   const handlePublish = () => {
     publishMutation.mutate(survey.id, {
-      onSuccess: updated => showSuccess(t("publishSuccessTitle"), updated.link),
-      onError: () => showError(t("publishErrorText")),
+      onSuccess: updated => showAlert("success", t("publishSuccessTitle"), updated.link ?? ""),
+      onError: () => showAlert("error", t("errorTitle"), t("publishErrorText")),
     });
   };
 
@@ -59,21 +39,21 @@ export default function SurveyCard({ survey }: SurveyCardProps) {
         const updated = await publishMutation.mutateAsync(survey.id);
         link = updated.link;
       } catch {
-        showError(t("copyLinkErrorText"));
+        showAlert("error", t("errorTitle"), t("copyLinkErrorText"));
         return;
       }
     }
 
     if (!link) {
-      showError(t("copyLinkErrorText"));
+      showAlert("error", t("errorTitle"), t("copyLinkErrorText"));
       return;
     }
 
     try {
       await navigator.clipboard.writeText(link);
-      showSuccess(t("copyLinkSuccessTitle"), link);
+      showAlert("success", t("copyLinkSuccessTitle"), link);
     } catch {
-      showError(t("copyLinkErrorText"));
+      showAlert("error", t("errorTitle"), t("copyLinkErrorText"));
     }
   };
 
@@ -92,8 +72,8 @@ export default function SurveyCard({ survey }: SurveyCardProps) {
       if (!result.isConfirmed) return;
 
       deleteMutation.mutate(survey.id, {
-        onSuccess: () => showSuccess(t("deleteSuccessTitle")),
-        onError: () => showError(t("deleteErrorText")),
+        onSuccess: () => showAlert("success", t("deleteSuccessTitle")),
+        onError: () => showAlert("error", t("errorTitle"), t("deleteErrorText")),
       });
     });
   };

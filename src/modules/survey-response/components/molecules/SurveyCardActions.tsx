@@ -15,44 +15,36 @@ export default function SurveyCardActions({ surveyId }: SurveyCardActionsProps) 
   const t = useTranslations("dashboard.surveys.card");
 
   return (
-    <div className="mt-2 flex w-full flex-wrap items-center gap-3 md:grid md:grid-cols-3">
+    <div className="mt-2 flex w-full flex-wrap items-center gap-3">
       {surveyCardActions.map(action => {
         const isPrimary = action.variant === "primary";
 
         const iconProps = isPrimary ? { color: "#ffffff" } : { variant: "secondary" as const };
 
         const buttonClassName = cn(
-          "w-full",
+          "px-0 w-full",
           action.muted && "!border-[var(--border-color)] !text-[var(--color-text-dash)]",
           isPrimary && "!text-white"
         );
 
         const buttonContent = (
           <>
-            <Icon IconComponent={action.icon} size="xs" {...iconProps} className="!text-inherit shrink-0" />
-            {t(action.labelKey)}
+            <Icon
+              IconComponent={action.icon}
+              size="xs"
+              {...iconProps}
+              className="shrink-0 !text-inherit"
+            />
+            <span className="whitespace-nowrap">{t(action.labelKey)}</span>
           </>
         );
 
-        if (!action.href && action.hrefSuffix === undefined) {
-          return (
-            <Button
-              key={action.id}
-              variant={action.variant}
-              size="sm"
-              className={cn(buttonClassName, "flex-1")}
-            >
-              {buttonContent}
-            </Button>
-          );
-        }
+        const itemWrapperClassName = "flex-1 basis-[80px]";
 
-        const href = action.href
-          ? action.href(surveyId)
-          : `/dashboard/survey/${surveyId}${action.hrefSuffix}`;
+        const href = action.href?.(surveyId) || "";
 
         return (
-          <Link key={action.id} href={href} className="flex-1">
+          <Link key={action.id} href={href} className={itemWrapperClassName}>
             <Button variant={action.variant} size="sm" className={buttonClassName}>
               {buttonContent}
             </Button>

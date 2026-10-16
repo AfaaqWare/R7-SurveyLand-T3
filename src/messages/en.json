@@ -215,8 +215,9 @@
   "publicPages": {
     "home": {
       "hero-section": {
-        "title": "Turn <alt>questions</alt> into clarity",
-        "description": "Create surveys, collect feedback, and turn responses into decisions that help your business grow.",
+        "title": "Turn <alt>Questions</alt> into clarity and Transform <alt>Responses</alt> into Valuable Insights",
+
+        "description": "Effortlessly build surveys that deliver the answers you need to grow, improve, and connect with your audience.",
         "create-btn": "Create your survey",
         "how-work-btn": "See how it works"
       },
@@ -870,8 +871,8 @@
           "description": "Browse all responses"
         },
         "exportReports": {
-          "title": "Export Reports",
-          "description": "Download survey reports"
+          "title": "Export Recent Survey",
+          "description": "Download your latest survey's report"
         }
       },
       "sections": {
@@ -897,7 +898,7 @@
         "edit": "Edit",
         "openBuilder": "Open Builder",
         "viewAllQuestions": "View All Questions",
-        "viewResponses": "View Responses",
+        "export": "Export",
         "delete": "Delete"
       },
 

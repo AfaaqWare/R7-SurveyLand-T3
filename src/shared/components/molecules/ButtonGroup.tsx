@@ -1,11 +1,12 @@
 import React from "react";
-import Button from "../atoms/Button";
 import { cn } from "@/lib/cn";
-
+import Button, { type ButtonVariant } from "../atoms/Button";
 interface ButtonProps {
-  variant: "primary" | "secondary" | "outline" | "outline1" | "ghost" | "primary200" | "disabled";
+  variant?: ButtonVariant;
   children: React.ReactNode;
   size?: "sm" | "md" | "lg";
+  className?: string;
+  onClick?: () => void;
 }
 
 interface ButtonGroupProps {
@@ -15,7 +16,12 @@ interface ButtonGroupProps {
   className?: string;
 }
 
-export default function ButtonGroup({ button1, button2, gap = 4, className = "" }: ButtonGroupProps) {
+export default function ButtonGroup({
+  button1,
+  button2,
+  gap = 4,
+  className = "",
+}: ButtonGroupProps) {
   const gapClasses: Record<number, string> = {
     2: "gap-2",
     4: "gap-4",
@@ -23,11 +29,21 @@ export default function ButtonGroup({ button1, button2, gap = 4, className = "" 
     8: "gap-8",
   };
   return (
-    <div className={cn("flex items-center", gapClasses[gap] || "gap-4", className)}>
-      <Button variant={button1.variant} size={button1.size || "md"}>
+    <div className={cn("flex flex-wrap items-center", gapClasses[gap] || "gap-4", className)}>
+      <Button
+        variant={button1.variant}
+        size={button1.size || "md"}
+        className={button1.className}
+        onClick={button1.onClick}
+      >
         {button1.children}
       </Button>
-      <Button variant={button2.variant} size={button2.size || "md"}>
+      <Button
+        variant={button2.variant}
+        size={button2.size || "md"}
+        className={button2.className}
+        onClick={button2.onClick}
+      >
         {button2.children}
       </Button>
     </div>

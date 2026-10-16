@@ -2,13 +2,21 @@
 import Heading from "../../molecules/Home/Heading";
 import StepCard from "../../molecules/Home/StepCard";
 import { useTranslations } from "next-intl";
+import type { Ref } from "react";
 import { steps } from "../../../utils/data";
 
-export default function WorkStepsSection() {
+interface WorkStepsSectionProps {
+  sectionRef?: Ref<HTMLDivElement>;
+}
+
+export default function WorkStepsSection({ sectionRef }: WorkStepsSectionProps) {
   const t = useTranslations("publicPages.home.howItWorksSection");
 
   return (
-    <div className="ds-container my-3 flex min-h-[90vh] flex-col justify-center md:my-1 md:min-h-0 md:justify-center">
+    <div
+      ref={sectionRef}
+      className="ds-container my-3 flex min-h-[90vh] flex-col justify-center md:my-1 md:min-h-0 md:justify-center"
+    >
       <Heading
         title={t("Heading.title")}
         highlightText={t("Heading.highlightText")}
