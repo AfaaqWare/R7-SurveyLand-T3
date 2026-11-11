@@ -81,7 +81,7 @@ export default function SurveyResponseTemplate() {
   if (isLoading) {
     return (
       <PublicLayout>
-        <LoadingState />;
+        <LoadingState />
       </PublicLayout>
     );
   }
@@ -89,7 +89,7 @@ export default function SurveyResponseTemplate() {
   if (error || !data) {
     return (
       <PublicLayout>
-        <ErrorState />;
+        <ErrorState />
       </PublicLayout>
     );
   }
