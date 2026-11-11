@@ -55,7 +55,6 @@ export default function SignInFormContainer() {
         });
       },
       onError: error => {
-        console.log(error.status);
         if (error.status === 403) {
           setTimeout(() => {
             resetFlow.start(data.email, "register");
