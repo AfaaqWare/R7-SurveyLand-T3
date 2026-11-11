@@ -76,7 +76,10 @@ export default function ResponsesTable({ rows, questions }: ResponsesTableProps)
                   <TableRow key={response.id}>
                     {/* ID */}
                     <TableCell>
-                      <Text size="xs" className="!text-[var(--color-text-dash-secondary)]font-bold">
+                      <Text
+                        size="xs"
+                        className="font-bold !text-[var(--color-text-dash-secondary)]"
+                      >
                         {rowNumber}
                       </Text>
                     </TableCell>
@@ -92,7 +95,7 @@ export default function ResponsesTable({ rows, questions }: ResponsesTableProps)
                     <TableCell>
                       <a
                         href={`mailto:${response.respondentEmail}`}
-                        className="inline-bloc underline underline-offset-2"
+                        className="inline-block underline underline-offset-2"
                       >
                         <Text size="xs" className="!text-[var(--color-text-dash-secondary)]">
                           {response.respondentEmail}
