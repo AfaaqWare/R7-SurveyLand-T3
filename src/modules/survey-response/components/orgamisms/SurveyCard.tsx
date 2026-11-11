@@ -24,9 +24,16 @@ export default function SurveyCard({ survey }: SurveyCardProps) {
   const deleteMutation = useDeleteSurvey();
   const { showAlert } = useAlert();
 
+  const getSurveyUrl = (link: string) => `${window.location.origin}/survey/${link}`;
+
   const handlePublish = () => {
     publishMutation.mutate(survey.id, {
-      onSuccess: updated => showAlert("success", t("publishSuccessTitle"), updated.link ?? ""),
+      onSuccess: updated =>
+        showAlert(
+          "success",
+          t("publishSuccessTitle"),
+          updated.link ? getSurveyUrl(updated.link) : ""
+        ),
       onError: () => showAlert("error", t("errorTitle"), t("publishErrorText")),
     });
   };
@@ -49,9 +56,11 @@ export default function SurveyCard({ survey }: SurveyCardProps) {
       return;
     }
 
+    const surveyUrl = getSurveyUrl(link);
+
     try {
-      await navigator.clipboard.writeText(link);
-      showAlert("success", t("copyLinkSuccessTitle"), link);
+      await navigator.clipboard.writeText(surveyUrl);
+      showAlert("success", t("copyLinkSuccessTitle"), surveyUrl);
     } catch {
       showAlert("error", t("errorTitle"), t("copyLinkErrorText"));
     }
