@@ -1,5 +1,3 @@
-import ExcelJS from "exceljs";
-
 import { formatDateTime } from "@/shared/utils/formatDateTime";
 import type { SurveyResponse } from "@/modules/responses/type/responses";
 import type { SurveyQuestion } from "../types/question";
@@ -22,6 +20,9 @@ export async function exportResponsesToExcel({
   if (rows.length === 0 || !hasSelectedOptions) {
     return;
   }
+
+  const ExcelJS = (await import("exceljs")).default;
+
   const usedHeaders = new Map<string, number>();
 
   const questionHeaders = questions.map(question => {

@@ -12,6 +12,7 @@ import { Settings, Info, FileSpreadsheet, Lock } from "@/assets/icons/icons";
 import { exportSettingsOptions } from "../../utils/data";
 import { exportResponsesToExcel } from "../../utils/exportResponsesToExcel";
 import { cn } from "@/lib/cn";
+import { useAlert } from "@/shared/hooks/useAlert";
 import type { SurveyResponse } from "@/modules/responses/type/responses";
 import type { SurveyQuestion } from "../../types/question";
 
@@ -27,19 +28,31 @@ export default function ExportSettingsPanel({
   questions,
 }: ExportSettingsPanelProps) {
   const t = useTranslations("dashboard.surveysExport.exportSettings");
+  const tMenu = useTranslations("dashboard.surveys.card.menu");
+  const { showAlert } = useAlert();
 
   const [selectedOptions, setSelectedOptions] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(exportSettingsOptions.map(option => [option.id, true]))
   );
   const [fileName, setFileName] = useState(defaultFileName);
+  const [isExporting, setIsExporting] = useState(false);
 
   const toggleOption = (id: string) => {
     setSelectedOptions(prev => ({ ...prev, [id]: !prev[id] }));
   };
   const canExport = rows.length > 0 && Object.values(selectedOptions).some(Boolean);
 
-  const handleExport = () => {
-    exportResponsesToExcel({ rows, questions, selectedOptions, fileName });
+  const handleExport = async () => {
+    if (isExporting) return;
+
+    setIsExporting(true);
+    try {
+      await exportResponsesToExcel({ rows, questions, selectedOptions, fileName });
+    } catch {
+      showAlert("error", tMenu("errorTitle"));
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   return (
@@ -81,7 +94,12 @@ export default function ExportSettingsPanel({
         </Text>
       </div>
 
-      <Button variant="primaryWhite" isFullWidth disabled={!canExport} onClick={handleExport}>
+      <Button
+        variant="primaryWhite"
+        isFullWidth
+        disabled={!canExport || isExporting}
+        onClick={() => void handleExport()}
+      >
         <Icon IconComponent={FileSpreadsheet} size="sm" className="!text-inherit" />
         {t("exportButton")}
       </Button>
