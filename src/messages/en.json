@@ -1026,6 +1026,14 @@
       "subtitle": "Export all survey responses to an Excel file.",
       "edit": "Edit",
       "shareSurvey": "Share Survey",
+      "share": {
+        "description": "Share this survey with others",
+        "close": "Close share menu",
+        "shareOn": "Share on {platform}",
+        "byEmail": "Share by email",
+        "copy": "Copy",
+        "copied": "Copied"
+      },
       "responsesPreview": {
         "title": "Responses Preview",
         "showingFirstRows": "Showing first {count} rows",

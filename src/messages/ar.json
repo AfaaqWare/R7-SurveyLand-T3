@@ -1007,6 +1007,14 @@
       "subtitle": "قم بتصدير كل ردود الاستبيان إلى ملف Excel.",
       "edit": "تعديل",
       "shareSurvey": "مشاركة الاستبيان",
+      "share": {
+        "description": "شارك هذا الاستبيان مع الآخرين",
+        "close": "إغلاق قائمة المشاركة",
+        "shareOn": "المشاركة عبر {platform}",
+        "byEmail": "المشاركة عبر البريد الإلكتروني",
+        "copy": "نسخ",
+        "copied": "تم النسخ"
+      },
       "responsesPreview": {
         "title": "معاينة الردود",
         "showingFirstRows": "عرض أول {count} صفوف",

@@ -129,11 +129,11 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <Text size="sm" className="font-semibold text-[var(--color-text-primary)]">
-                    Share survey
+                    {t("shareSurvey")}
                   </Text>
 
                   <Text size="xs" variant="secondary" className="mt-1">
-                    Share this survey with others
+                    {t("share.description")}
                   </Text>
                 </div>
 
@@ -141,7 +141,7 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
                   type="button"
                   onClick={() => setIsShareOpen(false)}
                   className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--color-text-secondary)] transition hover:bg-[var(--color-bg-secondary)]"
-                  aria-label="Close share menu"
+                  aria-label={t("share.close")}
                 >
                   <Icon IconComponent={X} size="xs" />
                 </button>
@@ -149,27 +149,39 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
 
               {/* Share buttons */}
               <div className="grid grid-cols-4 gap-3 sm:grid-cols-6">
-                <WhatsappShareButton url={shareLink} aria-label="Share on WhatsApp">
+                <WhatsappShareButton
+                  url={shareLink}
+                  aria-label={t("share.shareOn", { platform: "WhatsApp" })}
+                >
                   <WhatsappIcon size={40} round />
                 </WhatsappShareButton>
 
-                <FacebookShareButton url={shareLink} aria-label="Share on Facebook">
+                <FacebookShareButton
+                  url={shareLink}
+                  aria-label={t("share.shareOn", { platform: "Facebook" })}
+                >
                   <FacebookIcon size={40} round />
                 </FacebookShareButton>
 
-                <TelegramShareButton url={shareLink} aria-label="Share on Telegram">
+                <TelegramShareButton
+                  url={shareLink}
+                  aria-label={t("share.shareOn", { platform: "Telegram" })}
+                >
                   <TelegramIcon size={40} round />
                 </TelegramShareButton>
 
-                <LinkedinShareButton url={shareLink} aria-label="Share on LinkedIn">
+                <LinkedinShareButton
+                  url={shareLink}
+                  aria-label={t("share.shareOn", { platform: "LinkedIn" })}
+                >
                   <LinkedinIcon size={40} round />
                 </LinkedinShareButton>
 
-                <XShareButton url={shareLink} aria-label="Share on X">
+                <XShareButton url={shareLink} aria-label={t("share.shareOn", { platform: "X" })}>
                   <XIcon size={40} round />
                 </XShareButton>
 
-                <EmailShareButton url={shareLink} aria-label="Share by email">
+                <EmailShareButton url={shareLink} aria-label={t("share.byEmail")}>
                   <EmailIcon size={40} round />
                 </EmailShareButton>
               </div>
@@ -191,7 +203,7 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
                   >
                     <Icon IconComponent={isCopied ? Check : Copy} size="xs" variant="secondary" />
 
-                    {isCopied ? "Copied" : "Copy"}
+                    {isCopied ? t("share.copied") : t("share.copy")}
                   </button>
                 </div>
               </div>
