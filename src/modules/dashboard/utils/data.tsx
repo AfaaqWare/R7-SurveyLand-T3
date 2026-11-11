@@ -157,7 +157,10 @@ export const recentSurveysConfig: RecentDataConfig<Survey> = {
       labelKey: "status",
       render: survey => (
         <StatusBadge
-          className={`!rounded-lg ${survey.status === "closed" && "!bg-[#F4F5F7] dark:!bg-[#2C3039]"}`}
+          className={cn(
+            "!rounded-lg",
+            survey.status === "closed" && "!bg-[#F4F5F7] dark:!bg-[#2C3039]"
+          )}
           status={survey.status}
         />
       ),
