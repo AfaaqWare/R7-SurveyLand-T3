@@ -16,7 +16,7 @@ const HomeHeroSection = ({ onHowItWorksClick }: HomeHeroSectionProps) => {
   return (
     <div className="!ds-bg-alt mb-20 !w-screen pt-30 lg:pt-0">
       <HeroSection src={homehero} imgHeight={482} imgWidth={488}>
-        <div className="!lg:justify-start flex flex-col gap-6">
+        <div className="flex flex-col gap-6 lg:!justify-start">
           <Title size="xl" className="md:w-[90%]">
             {t.rich("title", {
               alt: chunks => <span className="ds-text-alt">{chunks}</span>,
