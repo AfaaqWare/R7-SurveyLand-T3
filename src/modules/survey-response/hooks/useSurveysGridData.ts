@@ -9,7 +9,7 @@ import type { Survey } from "../types/survey";
 
 export const SURVEYS_GRID_PAGE_SIZE = 6;
 
-const FETCH_ALL_PAGE_SIZE = 1000;
+export const FETCH_ALL_PAGE_SIZE = 1000;
 
 interface UseSurveysGridDataParams {
   status: SurveyStatusFilter;

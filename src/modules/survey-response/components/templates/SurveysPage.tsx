@@ -7,6 +7,8 @@ import SurveysGrid from "../orgamisms/SurveysGrid";
 import type { SurveysSortOrder } from "../molecules/SurveySortSelect";
 import NoSurvey from "../orgamisms/NoSurvey";
 import useGetAllSurveys from "../../hooks/useGetAllSurveys";
+import { FETCH_ALL_PAGE_SIZE } from "../../hooks/useSurveysGridData";
+import { ErrorState } from "@/core/ui-states";
 import useSurveyStatus from "../../hooks/useSurveyStatus";
 
 export default function SurveysPage() {
@@ -15,10 +17,14 @@ export default function SurveysPage() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SurveysSortOrder>("newest");
 
-  const { data, isLoading } = useGetAllSurveys();
+  const { data, isLoading, isError, refetch } = useGetAllSurveys(1, FETCH_ALL_PAGE_SIZE);
 
   const surveys = data?.data ?? [];
   const hasSurveys = surveys.length > 0;
+
+  if (isError && !data) {
+    return <ErrorState onRetry={() => void refetch()} />;
+  }
 
   return (
     <div>
