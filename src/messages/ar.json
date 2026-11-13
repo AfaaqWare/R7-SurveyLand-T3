@@ -805,7 +805,8 @@
     "home": {
       "heading": {
         "title": "لوحة التحكم",
-        "welcomeMessage": "مرحبًا بعودتك، {name} ! إليك ما يحدث مع استبياناتك."
+        "welcomeMessage": "مرحبًا بعودتك، {name} ! إليك ما يحدث مع استبياناتك.",
+        "welcomeMessageNoName": "مرحبًا بعودتك! إليك ما يحدث مع استبياناتك."
       },
       "recentSurveys": {
         "table": {

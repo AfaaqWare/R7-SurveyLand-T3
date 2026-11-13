@@ -825,7 +825,8 @@
     "home": {
       "heading": {
         "title": "Dashboard",
-        "welcomeMessage": "Welcome back, {name} ! Here's what's happening with your surveys."
+        "welcomeMessage": "Welcome back, {name} ! Here's what's happening with your surveys.",
+        "welcomeMessageNoName": "Welcome back! Here's what's happening with your surveys."
       },
       "recentSurveys": {
         "table": {

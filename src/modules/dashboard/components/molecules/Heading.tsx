@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 interface HeadingProps {
-  name: string;
+  name?: string;
 }
 
 const Heading = ({ name }: HeadingProps) => {
@@ -17,7 +17,7 @@ const Heading = ({ name }: HeadingProps) => {
       <Title>{t("title")}</Title>
 
       <Text variant="disabled" size="md">
-        {t("welcomeMessage", { name })}
+        {name ? t("welcomeMessage", { name }) : t("welcomeMessageNoName")}
       </Text>
     </div>
   );
