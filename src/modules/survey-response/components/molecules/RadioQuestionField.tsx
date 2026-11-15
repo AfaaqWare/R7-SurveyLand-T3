@@ -27,20 +27,21 @@ export default function RadioQuestionField({
 }: RadioQuestionFieldProps) {
   return (
     <fieldset
+      aria-labelledby={`${id}-question-label`}
       className={`${mode === "edit" ? "border-b border-[var(--border-color-card)] last:border-b-0" : "!border-b-0"} py-5`}
     >
       <div className="flex gap-4 sm:gap-5">
         <QuestionNumber number={number} />
 
         <div className="min-w-0 flex-1">
-          <legend className="mb-3 inline-flex">
+          <div id={`${id}-question-label`} className="mb-3 inline-flex">
             <Text size="sm">{question}</Text>
             {required && (
               <span className="ml-1 text-red-500" aria-hidden="true">
                 *
               </span>
             )}
-          </legend>
+          </div>
 
           <div className="space-y-2">
             {choices.map(choice => {
@@ -49,7 +50,7 @@ export default function RadioQuestionField({
               return (
                 <label
                   key={choice}
-                  className={`${readOnly ? "ds-text-secondary cursor-default" : "ds-text-primary cursor-pointer"} flex items-center gap-2.5 text-sm font-[var(--font-heading)]`}
+                  className={`group ${readOnly ? "ds-text-secondary cursor-default" : "ds-text-primary cursor-pointer"} flex items-center gap-2.5 text-sm font-[var(--font-heading)]`}
                 >
                   <Input
                     id={`${id}-${choice}`}
@@ -67,7 +68,8 @@ export default function RadioQuestionField({
                     aria-hidden="true"
                     className={cn(
                       "flex size-4 items-center justify-center rounded-full border",
-                      isSelected ? "border-[var(--color-primary)]" : "border-[var(--border-color)]"
+                      isSelected ? "border-[var(--color-primary)]" : "border-[var(--border-color)]",
+                      "group-has-[:focus-visible]:shadow-[0_0_0_var(--focus-ring-width)_var(--focus-ring-color)]"
                     )}
                   >
                     {isSelected && (
