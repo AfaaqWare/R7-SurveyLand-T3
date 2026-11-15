@@ -4,6 +4,7 @@ import Text from "@/shared/components/atoms/Text";
 import Title from "@/shared/components/atoms/Title";
 import IconText from "../molecules/IconText";
 import { StaticImageData } from "next/image";
+import defaultCover from "@/assets/images/responseHeroImg.jpg";
 
 type SurveyDetailsCardProps = {
   title: string;
@@ -20,17 +21,19 @@ export default function SurveyDetailsCard({
   duration,
   image,
 }: SurveyDetailsCardProps) {
+  const coverSrc: string | StaticImageData = image || defaultCover;
+
   return (
     <section className="ds-bg-card ds-rounded-xl mt-12 mb-16 px-5 py-8 sm:px-6">
       <div className="space-y-3.5">
-        <div className="ds-primary-200 ds-rounded-xl overflow-hidden">
+        <div className="ds-primary-200 ds-rounded-xl relative aspect-2/1 w-full overflow-hidden md:aspect-auto md:h-[300px]">
           <AppImage
-            src={image}
+            src={coverSrc}
             alt={`${title} cover image`}
-            width={1162}
-            height={351}
+            fill
             priority
-            className="w-full [&_img]:h-[300px] [&_img]:w-full [&_img]:object-cover"
+            sizes="(max-width: 1280px) 100vw, 1232px"
+            className="!absolute inset-0 [&_img]:h-full [&_img]:w-full [&_img]:object-cover"
           />
         </div>
         <div className="space-y-2.5">
