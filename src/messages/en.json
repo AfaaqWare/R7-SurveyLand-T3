@@ -962,6 +962,7 @@
           "closed": "Closed"
         },
         "searchPlaceholder": "Search Surveys",
+        "searchLabel": "Search surveys",
         "sort": {
           "label": "Sort surveys",
           "newest": "Newest First",

@@ -943,6 +943,7 @@
           "closed": "مغلق"
         },
         "searchPlaceholder": "بحث عن استبيان",
+        "searchLabel": "ابحث في الاستبيانات",
         "sort": {
           "label": "ترتيب الاستبيانات",
           "newest": "الأحدث أولا",
