@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import { Check, ChevronDown } from "@/assets/icons/icons";
@@ -19,6 +19,8 @@ export default function SurveySortSelect({ value, onChange, className }: SurveyS
   const t = useTranslations("dashboard.surveys.filters.sort");
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const listId = useId();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -30,7 +32,10 @@ export default function SurveySortSelect({ value, onChange, className }: SurveyS
     };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        buttonRef.current?.focus();
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -45,14 +50,16 @@ export default function SurveySortSelect({ value, onChange, className }: SurveyS
   const handleSelect = (option: SurveysSortOrder) => {
     onChange(option);
     setIsOpen(false);
+    buttonRef.current?.focus();
   };
 
   return (
     <div ref={containerRef} className={cn("relative inline-flex w-fit", className)}>
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(open => !open)}
-        aria-haspopup="listbox"
+        aria-controls={isOpen ? listId : undefined}
         aria-expanded={isOpen}
         aria-label={t("label")}
         className="ds-text-sm ds-bg-card ds-border-card ds-rounded-lg focus:ds-focus hover:ds-primary-200 flex h-11 cursor-pointer items-center gap-2 ps-4 pe-3 !font-medium !text-[var(--color-text-secondary)] transition-colors !outline-none"
@@ -69,15 +76,16 @@ export default function SurveySortSelect({ value, onChange, className }: SurveyS
 
       {isOpen && (
         <ul
-          role="listbox"
+          id={listId}
           aria-label={t("label")}
           className="ds-bg-card ds-border-card ds-shadow-md absolute end-0 top-full z-20 mt-2 w-full min-w-40 overflow-hidden rounded-lg border py-1"
         >
           {SORT_OPTIONS.map(option => (
-            <li key={option} role="option" aria-selected={option === value}>
+            <li key={option}>
               <button
                 type="button"
                 onClick={() => handleSelect(option)}
+                aria-current={option === value ? "true" : undefined}
                 className={cn(
                   "ds-text-sm hover:ds-primary-200 flex w-full items-center justify-between gap-2 px-4 py-2.5 text-start transition-colors",
                   option === value ? "ds-text-primary !font-semibold" : "ds-text-secondary"
