@@ -118,6 +118,10 @@
     "verify": {},
     "forms": {
       "signIn": {
+        "meta": {
+          "title": "تسجيل الدخول - Afaaq Ware",
+          "description": "سجّل الدخول إلى حسابك في Survey Land لإنشاء الاستبيانات ومشاركتها وتحليلها"
+        },
         "title": "تسجيل الدخول",
         "description": "أو سجّل باستخدام بريدك الإلكتروني",
         "placeholderEmail": "البريد الإلكتروني",
@@ -695,6 +699,10 @@
     "copyRight": " SurveyLand © 2026 . جميع الحقوق محفوظة."
   },
   "surveyResponse": {
+    "meta": {
+      "title": "استبيان - Afaaq Ware",
+      "description": "املأ ردك على هذا الاستبيان وأرسله عبر Survey Land"
+    },
     "responseDuration": "يستغرق من 5 إلى 7 دقائق",
     "SurveyInformation": {
       "title": "بياناتك",

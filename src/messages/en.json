@@ -119,6 +119,10 @@
 
     "forms": {
       "signIn": {
+        "meta": {
+          "title": "Sign In - Afaaq Ware",
+          "description": "Sign in to your Survey Land account to create, share and analyze surveys"
+        },
         "title": "SIGN IN",
         "description": "Or register using your email address",
         "placeholderEmail": "E-mail",
@@ -714,6 +718,10 @@
   },
 
   "surveyResponse": {
+    "meta": {
+      "title": "Survey - Afaaq Ware",
+      "description": "Fill in and submit your response to this survey on Survey Land"
+    },
     "responseDuration": "Take 5 - 7 minutes",
     "SurveyInformation": {
       "title": "Your Information",
