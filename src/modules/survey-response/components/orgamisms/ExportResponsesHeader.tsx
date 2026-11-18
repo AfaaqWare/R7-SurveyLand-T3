@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import Title from "@/shared/components/atoms/Title";
 import Text from "@/shared/components/atoms/Text";
 import Button from "@/shared/components/atoms/Button";
 import Icon from "@/shared/components/atoms/Icon";
@@ -125,7 +124,7 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
   return (
     <section className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
-        <Title size="md">{t("title")}</Title>
+        <h1 className="ds-text-primary ds-text-md font-bold capitalize">{t("title")}</h1>
 
         <Text variant="secondary" size="sm" className="mt-1">
           {t("subtitle")}

@@ -1,7 +1,6 @@
 import { CalendarDays, Clock3 } from "@/assets/icons/icons";
 import AppImage from "@/shared/components/atoms/Image";
 import Text from "@/shared/components/atoms/Text";
-import Title from "@/shared/components/atoms/Title";
 import IconText from "../molecules/IconText";
 import { StaticImageData } from "next/image";
 import defaultCover from "@/assets/images/responseHeroImg.jpg";
@@ -37,9 +36,7 @@ export default function SurveyDetailsCard({
           />
         </div>
         <div className="space-y-2.5">
-          <Title size="lg" className="normal-case">
-            {title}
-          </Title>
+          <h1 className="ds-text-primary ds-text-lg normal-case">{title}</h1>
 
           <Text size="md" variant="disabled">
             {description}
