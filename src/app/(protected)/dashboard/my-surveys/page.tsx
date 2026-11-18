@@ -9,6 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildSeo({
     title: t("title"),
     description: t("description"),
+    noIndex: true,
   });
 }
 

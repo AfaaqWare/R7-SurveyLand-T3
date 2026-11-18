@@ -41,7 +41,7 @@ export default function RecentDataSection<T>({
 
       {isLoading && skeleton}
 
-      {!isLoading && isError && <ErrorState className="!m-h-50 !max-h-50" />}
+      {!isLoading && isError && <ErrorState className="!max-h-50 !min-h-50" />}
 
       {!isLoading && !isError && items.length === 0 && (
         <EmptyState className="!max-h-50 !min-h-50" />

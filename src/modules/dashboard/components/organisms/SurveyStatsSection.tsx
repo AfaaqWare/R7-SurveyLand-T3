@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import StatsCard from "../molecules/StatsCard";
-import SurveyStatsSectionSkeleton from "./SurveyStatsSectionSkeleton";
+import StatsCardSkeleton from "../molecules/StatsCardSkeleton";
 import useLastMonthStats from "../../hooks/useLastMonthStats";
 import { useTranslations } from "next-intl";
 
@@ -14,6 +14,14 @@ interface SurveyStat {
   icon: StatsIcon;
 }
 
+const SOURCE_BY_STAT_ID: Record<string, "surveys" | "responses" | "users"> = {
+  totalSurveys: "surveys",
+  published: "surveys",
+  draft: "surveys",
+  totalResponses: "responses",
+  totalUsers: "users",
+};
+
 interface SurveyStatsSectionProps {
   stats: SurveyStat[];
   className?: string;
@@ -22,11 +30,7 @@ interface SurveyStatsSectionProps {
 export default function SurveyStatsSection({ stats, className }: SurveyStatsSectionProps) {
   const t = useTranslations();
 
-  const { stats: lastMonthStats, isLoading: loadingLastMonthStats } = useLastMonthStats();
-
-  if (loadingLastMonthStats) {
-    return <SurveyStatsSectionSkeleton className={className} />;
-  }
+  const { stats: lastMonthStats, sources } = useLastMonthStats();
 
   const resultState: Record<string, number> = {
     totalSurveys: lastMonthStats.totalSurveys,
@@ -39,16 +43,24 @@ export default function SurveyStatsSection({ stats, className }: SurveyStatsSect
   return (
     <section className={className}>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
-        {stats.map(stat => (
-          <StatsCard
-            key={stat.id}
-            variant={stat.variant}
-            icon={stat.icon}
-            title={stat.title}
-            value={resultState[stat.id]}
-            description={t("dashboard.home.stats.fromLastMonth")}
-          />
-        ))}
+        {stats.map(stat => {
+          const source = sources[SOURCE_BY_STAT_ID[stat.id]];
+
+          if (source.isLoading) {
+            return <StatsCardSkeleton key={stat.id} />;
+          }
+
+          return (
+            <StatsCard
+              key={stat.id}
+              variant={stat.variant}
+              icon={stat.icon}
+              title={stat.title}
+              value={source.isError ? "—" : resultState[stat.id]}
+              description={t("dashboard.home.stats.fromLastMonth")}
+            />
+          );
+        })}
       </div>
     </section>
   );

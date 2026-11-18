@@ -33,6 +33,7 @@ export default function SurveysToolbar({
         <IconInput
           icon={<Search size={18} />}
           placeholder={t("searchPlaceholder")}
+          aria-label={t("searchLabel")}
           value={search}
           onChange={event => onSearchChange(event.target.value)}
           className="!border-[var(--border-color-card)] !bg-[var(--color-bg-card)] sm:w-64"

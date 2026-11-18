@@ -28,7 +28,7 @@ export default function SurveyResponseTemplate() {
 
   const { data, isLoading, error } = useGetQuestionsByLink(surveyLink);
 
-  const { mutate: submitResponse } = useSubmitPublicSurveyResponse(surveyLink);
+  const { mutate: submitResponse, isPending } = useSubmitPublicSurveyResponse(surveyLink);
 
   const handleAnswerChange = (questionId: string, value: string | string[]) => {
     setAnswers(prev => ({
@@ -39,7 +39,7 @@ export default function SurveyResponseTemplate() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isFormValid) {
+    if (!isFormValid || isPending) {
       return;
     }
     submitResponse(
@@ -51,6 +51,9 @@ export default function SurveyResponseTemplate() {
       {
         onSuccess: () => {
           showAlert("success", t("submitSuccess"));
+          setFullName("");
+          setEmail("");
+          setAnswers({});
         },
         onError: () => {
           showAlert("error", t("submitError"));
@@ -81,7 +84,7 @@ export default function SurveyResponseTemplate() {
   if (isLoading) {
     return (
       <PublicLayout>
-        <LoadingState />;
+        <LoadingState />
       </PublicLayout>
     );
   }
@@ -89,14 +92,14 @@ export default function SurveyResponseTemplate() {
   if (error || !data) {
     return (
       <PublicLayout>
-        <ErrorState />;
+        <ErrorState />
       </PublicLayout>
     );
   }
 
   return (
     <PublicLayout>
-      <main className="ds-bg min-h-screen pt-10 sm:pt-14 lg:pt-16">
+      <div className="ds-bg min-h-screen pt-10 sm:pt-14 lg:pt-16">
         <div className="ds-container mx-auto max-w-[1232px]">
           <SurveyDetailsCard
             title={data.title}
@@ -118,11 +121,11 @@ export default function SurveyResponseTemplate() {
               questions={data.questions}
               answers={answers}
               onAnswerChange={handleAnswerChange}
-              isSubmitDisabled={!isFormValid}
+              isSubmitDisabled={!isFormValid || isPending}
             />
           </form>
         </div>
-      </main>
+      </div>
     </PublicLayout>
   );
 }

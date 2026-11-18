@@ -119,6 +119,10 @@
 
     "forms": {
       "signIn": {
+        "meta": {
+          "title": "Sign In - Afaaq Ware",
+          "description": "Sign in to your Survey Land account to create, share and analyze surveys"
+        },
         "title": "SIGN IN",
         "description": "Or register using your email address",
         "placeholderEmail": "E-mail",
@@ -714,6 +718,10 @@
   },
 
   "surveyResponse": {
+    "meta": {
+      "title": "Survey - Afaaq Ware",
+      "description": "Fill in and submit your response to this survey on Survey Land"
+    },
     "responseDuration": "Take 5 - 7 minutes",
     "SurveyInformation": {
       "title": "Your Information",
@@ -825,7 +833,8 @@
     "home": {
       "heading": {
         "title": "Dashboard",
-        "welcomeMessage": "Welcome back, {name} ! Here's what's happening with your surveys."
+        "welcomeMessage": "Welcome back, {name} ! Here's what's happening with your surveys.",
+        "welcomeMessageNoName": "Welcome back! Here's what's happening with your surveys."
       },
       "recentSurveys": {
         "table": {
@@ -961,6 +970,7 @@
           "closed": "Closed"
         },
         "searchPlaceholder": "Search Surveys",
+        "searchLabel": "Search surveys",
         "sort": {
           "label": "Sort surveys",
           "newest": "Newest First",
@@ -1026,6 +1036,14 @@
       "subtitle": "Export all survey responses to an Excel file.",
       "edit": "Edit",
       "shareSurvey": "Share Survey",
+      "share": {
+        "description": "Share this survey with others",
+        "close": "Close share menu",
+        "shareOn": "Share on {platform}",
+        "byEmail": "Share by email",
+        "copy": "Copy",
+        "copied": "Copied"
+      },
       "responsesPreview": {
         "title": "Responses Preview",
         "showingFirstRows": "Showing first {count} rows",

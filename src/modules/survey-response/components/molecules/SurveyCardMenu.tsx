@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
@@ -30,6 +30,8 @@ export default function SurveyCardMenu({
   const t = useTranslations("dashboard.surveys.card.menu");
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const listId = useId();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -41,7 +43,10 @@ export default function SurveyCardMenu({
     };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        buttonRef.current?.focus();
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -62,9 +67,10 @@ export default function SurveyCardMenu({
   return (
     <div ref={containerRef} className={cn("relative inline-flex", className)}>
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(open => !open)}
-        aria-haspopup="menu"
+        aria-controls={isOpen ? listId : undefined}
         aria-expanded={isOpen}
         aria-label={t("label")}
         className="ds-shadow-sm flex size-8 cursor-pointer items-center justify-center rounded-full bg-white/90 text-gray-700 transition-colors hover:bg-white"
@@ -74,7 +80,7 @@ export default function SurveyCardMenu({
 
       {isOpen && (
         <ul
-          role="menu"
+          id={listId}
           aria-label={t("label")}
           className="ds-border-card ds-shadow-md absolute end-0 top-full z-30 mt-2 w-44 overflow-hidden rounded-xl border bg-[var(--color-bg-card)]/80 py-1 backdrop-blur-md"
         >
@@ -88,10 +94,9 @@ export default function SurveyCardMenu({
 
             if (item.kind === "link") {
               return (
-                <li key={item.id} role="none">
+                <li key={item.id}>
                   <Link
                     href={item.href?.(surveyId) || ""}
-                    role="menuitem"
                     onClick={() => setIsOpen(false)}
                     className={itemClassName}
                   >
@@ -105,10 +110,9 @@ export default function SurveyCardMenu({
             const handler = actionHandlers[item.id];
 
             return (
-              <li key={item.id} role="none">
+              <li key={item.id}>
                 <button
                   type="button"
-                  role="menuitem"
                   disabled={handler.disabled}
                   onClick={() => {
                     setIsOpen(false);

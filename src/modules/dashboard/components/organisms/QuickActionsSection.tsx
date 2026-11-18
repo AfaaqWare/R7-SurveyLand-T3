@@ -18,7 +18,7 @@ export default function QuickActionsSection() {
   const visibleActions = quickActions.filter(action => !action.adminOnly || isAdmin);
 
   return (
-    <section className="ds-rounded-lg ds-bg-card w-full p-4 md:p-6 lg:p-10">
+    <section className="ds-rounded-lg ds-bg-card @container w-full p-4 md:p-6 lg:p-10">
       <Title size="sm" className="font-bold !text-[var(--color-text-dash-secondary)]">
         {t("title")}
       </Title>
@@ -28,9 +28,8 @@ export default function QuickActionsSection() {
           "mt-10",
           "grid w-full gap-5",
           "grid-cols-1",
-          "sm:grid-cols-2",
-          "lg:grid-cols-3",
-          isAdmin && "lg:grid-cols-4"
+          "@md:grid-cols-2",
+          isAdmin ? "@5xl:grid-cols-4" : "@3xl:grid-cols-3"
         )}
       >
         {visibleActions.map(action => {

@@ -1,6 +1,23 @@
 import React from "react";
 import Title from "@/shared/components/atoms/Title";
 import Text from "@/shared/components/atoms/Text";
+import { cn } from "@/lib/cn";
+
+const TITLE_SIZE_CLASSES = {
+  sm: "ds-text-sm",
+  base: "ds-text-base",
+  md: "ds-text-md",
+  lg: "ds-text-lg",
+  xl: "ds-text-xl",
+};
+
+const TITLE_VARIANT_CLASSES = {
+  primary: "ds-text-primary",
+  disabled: "ds-text-disabled",
+  secondary: "ds-text-secondary",
+  alt: "ds-text-alt",
+  white: "text-white",
+};
 
 interface DashboardHeaderProps {
   title: string;
@@ -24,9 +41,15 @@ const DashboardHeader = ({
   return (
     <section className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
-        <Title size={titleSize} variant={titleVariant}>
+        <h1
+          className={cn(
+            TITLE_VARIANT_CLASSES[titleVariant ?? "primary"],
+            TITLE_SIZE_CLASSES[titleSize],
+            "font-bold capitalize"
+          )}
+        >
           {title}
-        </Title>
+        </h1>
 
         {subtitle && (
           <Text variant={subtitleVariant} size={subtitleSize} className="mt-1">

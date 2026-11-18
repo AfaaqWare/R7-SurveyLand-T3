@@ -1,7 +1,9 @@
 import { useApiMutation } from "@/shared/hooks/useApiMutation";
 import { TokenService } from "@/services/tokenService";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const useLogoutApi = () => {
+  const queryClient = useQueryClient();
   return useApiMutation<undefined, string>({
     mutationFn: async () => {
       TokenService.removeToken();
@@ -14,7 +16,7 @@ export const useLogoutApi = () => {
 
     options: {
       onSuccess: () => {
-        // success handling is managed by the caller
+        queryClient.clear();
       },
     },
   });

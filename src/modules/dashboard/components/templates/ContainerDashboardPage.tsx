@@ -37,8 +37,8 @@ export default function ContainerDashboardPage() {
     color: item.color,
   }));
   return (
-    <main>
-      <Heading name={String(name ?? "loading...")} />
+    <div>
+      <Heading name={name} />
 
       <SurveyStatsSection stats={surveyStats} />
       <div className="my-10 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.2fr)]">
@@ -58,6 +58,6 @@ export default function ContainerDashboardPage() {
         <SurveyStatusSection data={surveyStatusData} isLoading={loadingStatusCounts} />
       </div>
       <QuickActionsSection />
-    </main>
+    </div>
   );
 }

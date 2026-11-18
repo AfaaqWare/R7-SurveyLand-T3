@@ -1,12 +1,11 @@
 "use client";
 
 import Text from "@/shared/components/atoms/Text";
-import Title from "@/shared/components/atoms/Title";
 import { useTranslations } from "next-intl";
 import React from "react";
 
 interface HeadingProps {
-  name: string;
+  name?: string;
 }
 
 const Heading = ({ name }: HeadingProps) => {
@@ -14,10 +13,10 @@ const Heading = ({ name }: HeadingProps) => {
 
   return (
     <div className="mb-11 md:mt-6">
-      <Title>{t("title")}</Title>
+      <h1 className="ds-text-primary ds-text-xl font-bold capitalize">{t("title")}</h1>
 
       <Text variant="disabled" size="md">
-        {t("welcomeMessage", { name })}
+        {name ? t("welcomeMessage", { name }) : t("welcomeMessageNoName")}
       </Text>
     </div>
   );

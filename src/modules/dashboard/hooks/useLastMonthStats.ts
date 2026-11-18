@@ -41,5 +41,10 @@ export default function useLastMonthStats() {
     stats,
     isLoading: loadingSurveys || loadingResponses || loadingUsers,
     isError: errorSurveys || errorResponses || errorUsers,
+    sources: {
+      surveys: { isLoading: loadingSurveys, isError: errorSurveys },
+      responses: { isLoading: loadingResponses, isError: errorResponses },
+      users: { isLoading: loadingUsers, isError: errorUsers },
+    },
   };
 }

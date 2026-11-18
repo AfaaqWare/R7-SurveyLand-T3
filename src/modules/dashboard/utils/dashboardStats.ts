@@ -1,6 +1,7 @@
 import type { Survey, SurveyStatus } from "@/modules/survey-response/types/survey";
 import type { RecentSurveyResponse, SurveyResponse } from "@/modules/responses/type/responses";
 import type { AdminUser } from "../types/AdminUser";
+import { FETCH_ALL_PAGE_SIZE } from "@/modules/survey-response/hooks/useSurveysGridData";
 import type { DateRange, LastMonthStats, SurveyStatusCounts } from "../types/dashboardStats";
 
 interface LastMonthStatsInput {
@@ -11,11 +12,15 @@ interface LastMonthStatsInput {
 }
 export const RECENT_ITEMS_LIMIT = 4;
 export const DASHBOARD_SURVEYS_PAGE = 1;
-export const DASHBOARD_SURVEYS_PAGE_SIZE = 100;
+export const DASHBOARD_SURVEYS_PAGE_SIZE = FETCH_ALL_PAGE_SIZE;
 
 export function getLastMonthRange(now: Date = new Date()): DateRange {
   const from = new Date(now);
-  from.setMonth(now.getMonth() - 1);
+  const day = from.getDate();
+  from.setDate(1);
+  from.setMonth(from.getMonth() - 1);
+  const lastDayOfPreviousMonth = new Date(from.getFullYear(), from.getMonth() + 1, 0).getDate();
+  from.setDate(Math.min(day, lastDayOfPreviousMonth));
 
   return { from, to: now };
 }
