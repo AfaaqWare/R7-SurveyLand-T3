@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Title from "@/shared/components/atoms/Title";
 import Text from "@/shared/components/atoms/Text";
@@ -43,6 +43,40 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { showAlert } = useAlert();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerId = useId();
+  const popupId = useId();
+
+  const closeShare = () => {
+    setIsShareOpen(false);
+    document.getElementById(triggerId)?.focus();
+  };
+
+  useEffect(() => {
+    if (!isShareOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsShareOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsShareOpen(false);
+        document.getElementById(triggerId)?.focus();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isShareOpen, triggerId]);
 
   const handleShare = async () => {
     if (survey.status === "closed") {
@@ -111,11 +145,14 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
           </Button>
         </Link>
 
-        <div className="relative">
+        <div ref={containerRef} className="relative">
           <Button
+            id={triggerId}
             variant="primaryWhite"
             size="md"
             onClick={() => void handleShare()}
+            aria-expanded={isShareOpen}
+            aria-controls={isShareOpen ? popupId : undefined}
             disabled={publishMutation.isPending || isClosed}
           >
             <Icon IconComponent={Send} size="xs" color="#ffffff" />
@@ -124,7 +161,12 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
           </Button>
 
           {isShareOpen && shareLink && (
-            <div className="ds-bg-card fixed [inset-inline-end:0] top-[120px] z-50 mx-auto mt-2 w-screen rounded-xl border border-[var(--border-color)] p-4 shadow-lg sm:absolute sm:top-full sm:w-[300px] sm:max-w-[360px]">
+            <div
+              id={popupId}
+              role="group"
+              aria-label={t("shareSurvey")}
+              className="ds-bg-card fixed [inset-inline-end:0] top-[120px] z-50 mx-auto mt-2 w-screen rounded-xl border border-[var(--border-color)] p-4 shadow-lg sm:absolute sm:top-full sm:w-[300px] sm:max-w-[360px]"
+            >
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
                 <div>
@@ -139,7 +181,7 @@ export default function ExportResponsesHeader({ survey }: ExportResponsesHeaderP
 
                 <button
                   type="button"
-                  onClick={() => setIsShareOpen(false)}
+                  onClick={closeShare}
                   className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--color-text-secondary)] transition hover:bg-[var(--color-bg-secondary)]"
                   aria-label={t("share.close")}
                 >
