@@ -36,7 +36,7 @@ export default function TextQuestionField({
           <label htmlFor={id} className="inline-flex">
             <Text size="sm">{question}</Text>
             {required && (
-              <span className="ml-1 text-red-500" aria-hidden="true">
+              <span className="ms-1 text-red-500" aria-hidden="true">
                 *
               </span>
             )}
@@ -48,6 +48,7 @@ export default function TextQuestionField({
             value={value}
             maxLength={maxLength}
             required={required}
+            aria-describedby={`${id}-counter`}
             rows={4}
             onChange={readOnly ? undefined : event => onChange?.(event.target.value)}
             disabled={readOnly}
@@ -58,14 +59,15 @@ export default function TextQuestionField({
             }
           />
 
-          <Text
-            size="sm"
-            variant="disabled"
-            aria-live="polite"
-            className="text-right text-xs font-[var(--font-heading)]"
-          >
-            {value.length}/{maxLength}
-          </Text>
+          <div id={`${id}-counter`}>
+            <Text
+              size="sm"
+              variant="disabled"
+              className="text-end text-xs font-[var(--font-heading)]"
+            >
+              {value.length}/{maxLength}
+            </Text>
+          </div>
         </div>
       </div>
     </section>
